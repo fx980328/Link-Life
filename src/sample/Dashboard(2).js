@@ -10,10 +10,12 @@ const Dashboard = () => {
       <Navbar />
       
       {/* My-내 타임라인 */}
-      <MyTimeLine></MyTimeLine>
+      {/* <MyTimeLine></MyTimeLine> */}
 
       {/* My-개인정보수정 */}
-      {/* <InformationUpdate></InformationUpdate> */}
+      <InformationUpdate></InformationUpdate>
+
+      
     </div>
   )
 }

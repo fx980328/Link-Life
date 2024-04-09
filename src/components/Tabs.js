@@ -1,11 +1,15 @@
 import React, {useState} from 'react'
 import "../App.css"
 import { FaSearch, FaEdit, FaRegCalendarAlt, FaArrowLeft } from "react-icons/fa";
-import { FaRegImages, FaPeopleGroup } from "react-icons/fa6";
+import { FaRegImages, FaPeopleGroup, FaRegClock } from "react-icons/fa6";
 import { GrMapLocation } from "react-icons/gr";
 import { FiUpload } from "react-icons/fi";
 import { IoCloseCircle, IoPlayCircleSharp, IoPlaySharp } from "react-icons/io5";
 import { ImArrowLeft, ImArrowRight } from "react-icons/im";
+import picture_user from '../images/user.jpeg';
+import picture_user2 from '../images/user2.jpeg'
+import picture_user3 from '../images/user3.jpeg'
+import NavbarFull from './NavbarFull';
 
 const Tabs = () => {
 
@@ -14,9 +18,38 @@ const Tabs = () => {
         setToggleState(index);
     }
 
+    // 참석자 - 친구/그룹 버튼 관련 state 생성
     const [searchTypeState, setSearchTypeState] = useState(1);
     const searchTypeButton = (index) => {
         setSearchTypeState(index);
+    }
+
+    // 참석자 - 친구/그룹 버튼 관련 state 생성
+    const [groupState, setGroupState] = useState(1);
+    const groupTab = (index) => {
+        setGroupState(index);
+    }
+
+    // 일정 - (우측 하단)종일, 오늘, D-day 버튼
+    const [allDayState, setAllDayState] = useState(0);
+    let count_AllDayButton = 0;
+    const alldayButton = (index) => {
+        count_AllDayButton = count_AllDayButton + index;
+        setAllDayState(count_AllDayButton%2);
+        console.log('count : ' + parseInt(count_AllDayButton));
+        console.log('count/2 : ' + parseInt(count_AllDayButton%2));
+    }
+
+    const [todayState, setTodayState] = useState(0);
+    const todayButton = (index) => {
+        setTodayState(index);
+        console.log('todayButton : ' + index);
+    }
+
+    const [dDayState, setDDayState] = useState(0);
+    const dDayButton = (index) => {
+        setDDayState(index);
+        console.log('dDayButton : ' + index);
     }
 
     // 파일정보를 저장할 state 생성
@@ -61,7 +94,6 @@ const Tabs = () => {
 
         return parseFloat((byte / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
-
     
     return (
     <>
@@ -182,14 +214,45 @@ const Tabs = () => {
                         width: '480px',
                     }}
                     >
+                        {/* 1. 날짜 및 시간 Title -> 우측(right) 화면 */}
+                        <div className='flex w-full h-8'>
+
+                            <FaRegClock className='w-5 h-5 mr-2' /> <h2 className='w-full h-8 p-3 text-sm font-bold'>날짜 및 시간</h2>
+                        </div>
                         
-                        
-                    </div>                   
+                        {/* 2. 날짜 및 시간 Box -> 우측(right) 화면 */}
+                        <div
+                        style={{
+                            border: '1px solid red',
+                            height: '200px',
+                            width: '478px',
+                        }}
+                        >
+
+
+                        </div>
+
+                        {/* 3. 날짜 및 시간 Button 영역 -> 우측(right) 화면 */}
+                        <div
+                        style={{
+                            border: '1px solid blue',
+                            height: '82px',
+                            width: '478px',
+                        }}
+                        >
+                            <button className='calanderButton'
+                            onClick={() => alldayButton(1)} 
+                            >종일</button>
+                            <button className='calanderButton'
+                            onClick={() => todayButton(1)}
+                            >오늘</button>
+                            <button className='calanderButton'
+                            onClick={() => dDayButton(1)}
+                            >D-day</button>
+                        </div>
+                    </div>                    
                 </div>
             </div>
-
-
-
 
             <div 
             className={toggleState === 3 ? "content active-content" : "content"}
@@ -206,8 +269,8 @@ const Tabs = () => {
                     }}
                     >
                         {/* 사진&영상 영역 틀 예시(1) */}
-                        <div className='w-32 h-32 m-3 bg-gray-100'
-                          style={{
+                        {/* <div className='w-32 h-32 m-3 bg-gray-100'
+                        style={{
                             border: '1px solid #8c8c8c',
                             borderRadius: '5px',
                             float: 'left',
@@ -216,11 +279,11 @@ const Tabs = () => {
                             <div className='flex items-center h-7 w-31'>
                                 <IoCloseCircle className='w-5 h-5 ml-24' />
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* 사진&영상 영역 틀 예시(2) */}
-                        <div className='w-32 h-32 m-3 bg-gray-100'
-                          style={{
+                        {/* <div className='w-32 h-32 m-3 bg-gray-100'
+                        style={{
                             border: '1px solid #8c8c8c',
                             borderRadius: '5px',
                             float: 'left', 
@@ -238,7 +301,7 @@ const Tabs = () => {
                                     <IoPlaySharp className='w-3 h-3 m-1' />11:20
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* 0. 사진 Tab -> 우측(right) 화면 */}
@@ -322,7 +385,7 @@ const Tabs = () => {
                                 </button>
 
                             </div>
- 
+
                         </div>
                     </div>                   
                 </div>
@@ -341,7 +404,7 @@ const Tabs = () => {
                     style={{
                         height: '315px',
                         width: '290px',
-                        overflow: 'scroll',
+                        overflowX: 'hidden',
                     }}
                     >
 
@@ -365,17 +428,155 @@ const Tabs = () => {
                         </div>
                         
                         {/* 2. 친구 및 그룹 리스트(List) 출력 */}
-                        <div
+                        <div className='lists'
                         style={{
                             border: '2px solid #7d7d7d',
                             height: '250px',
                             width: '290px',
-                            overflow: 'scroll',
                             borderRadius: '5px',
                         }}>
-                        
-                        </div>
+                            
+                            <div 
+                            className={searchTypeState === 1 ? "list active-list" : "list"}
+                            >
+                                
+                                <div>
+                                    {/* 2-(1). 친구 리스트 */}
+                                    <div className='flex items-center w-full'
+                                    style={{
+                                        borderBottom: '1px solid #cfcfcf',
+                                        width: '290px',
+                                    }}
+                                    >
+                                        <div className='m-2 ml-3'
+                                            style={{
+                                                backgroundImage: `url(${picture_user})`,
+                                                backgroundPosition: "center", // 이미지 위치
+                                                backgroundSize: "cover", // 이미지 꽉차게
+                                                backgroundRepeat: 'no-repeat', // 이미지 반복 지정
+                                                width:'30px', // 배경이미지 크기(너비)
+                                                height:'30px', // 배경이미지 크기(높이)
+                                                borderRadius: '100px',
+                                            }}
+                                            ></div>
+                                        <span className='m-2'>이순신</span>
+                                        {/* user 고유의 pk를 통해 관리 */}
+                                        <input type='hidden' id='user_num' name='user_num' />
+                                        <div className='m-2 ml-24'>
+                                            <button className='add-cancel-button'
+                                            >추가</button>
+                                        </div> 
+                                    </div>
 
+                                    <div className='flex items-center w-full'
+                                    style={{
+                                        borderBottom: '1px solid #cfcfcf',
+                                        width: '290px',
+                                    }}
+                                    >
+                                        <div className='m-2 ml-3'
+                                            style={{
+                                                backgroundImage: `url(${picture_user2})`,
+                                                backgroundPosition: "center", // 이미지 위치
+                                                backgroundSize: "cover", // 이미지 꽉차게
+                                                backgroundRepeat: 'no-repeat', // 이미지 반복 지정
+                                                width:'30px', // 배경이미지 크기(너비)
+                                                height:'30px', // 배경이미지 크기(높이)
+                                                borderRadius: '100px',
+                                            }}
+                                            ></div>
+                                        <span className='m-2'>김성결</span>
+                                        <div className='m-2 ml-24'>
+                                            <button className='add-cancel-button'
+                                            >추가</button>
+                                        </div> 
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div 
+                            className={searchTypeState === 2 ? "list active-list" : "list"}
+                            >
+                                <div>     
+                                    {/* 2-(2) 그룹 리스트 */}
+                                    <div className='flex items-center'
+                                    style={{
+                                        borderBottom: '1px solid #cfcfcf',
+                                        overflowX: 'scroll',
+                                        scrollbarWidth: 'none',
+                                        width: '290px',
+                                    }}
+                                    >
+                                        <button className='groupTab'>컴퓨터공학과 21학번</button>
+                                        <button className='groupTab'>신나는 우리 가족</button>
+                                        <button className='groupTab'>컴퓨터공학과 총동문회</button>
+                                        <button className='groupTab'>외가친척</button>
+                                        <button className='groupTab'>전공종합설계(1)</button>
+
+
+
+
+
+
+
+                                        
+                                    </div>
+
+                                    <div className='flex items-center w-full'
+                                    style={{
+                                        borderBottom: '1px solid #cfcfcf',
+                                        width: '290px',
+                                    }}
+                                    >
+                                        <div className='m-2 ml-3'
+                                            style={{
+                                                backgroundImage: `url(${picture_user3})`,
+                                                backgroundPosition: "center", // 이미지 위치
+                                                backgroundSize: "cover", // 이미지 꽉차게
+                                                backgroundRepeat: 'no-repeat', // 이미지 반복 지정
+                                                width:'30px', // 배경이미지 크기(너비)
+                                                height:'30px', // 배경이미지 크기(높이)
+                                                borderRadius: '100px',
+                                            }}
+                                            ></div>
+                                        <span className='m-2'>홍길동</span>
+                                        <div className='m-2 ml-24'>
+                                            <button className='add-cancel-button'
+                                            >추가</button>
+                                        </div> 
+                                    </div>
+                                </div>
+                            
+                                <div>                   
+                                    <div className='flex items-center w-full'
+                                    style={{
+                                        borderBottom: '1px solid #cfcfcf',
+                                        width: '290px',
+                                    }}
+                                    >
+                                        <div className='m-2 ml-3'
+                                            style={{
+                                                backgroundImage: `url(${picture_user})`,
+                                                backgroundPosition: "center", // 이미지 위치
+                                                backgroundSize: "cover", // 이미지 꽉차게
+                                                backgroundRepeat: 'no-repeat', // 이미지 반복 지정
+                                                width:'30px', // 배경이미지 크기(너비)
+                                                height:'30px', // 배경이미지 크기(높이)
+                                                borderRadius: '100px',
+                                            }}
+                                            ></div>
+                                        <span className='m-2'>김구라</span>
+                                        <div className='m-2 ml-24'>
+                                            <button className='add-cancel-button'
+                                            >추가</button>
+                                        </div> 
+                                    </div>
+                                </div>
+                            
+                            </div>
+
+
+                        </div>
                     </div>
 
                     {/* 0. 참석자 Tab - 중간(center) 화면 */}
@@ -392,7 +593,7 @@ const Tabs = () => {
                             height: '180px',
                         }}
                         >
-                           <ImArrowRight className='w-12 h-12 text-green-700 cursor-pointer hover:text-green-800' />
+                        <ImArrowRight className='w-12 h-12 text-green-700 cursor-pointer hover:text-green-800' />
                         </div>
                         <div className='flex items-start justify-center p-3'
                         style={{
@@ -400,7 +601,7 @@ const Tabs = () => {
                             height: '130px',
                         }}
                         >
-                          <ImArrowLeft className='w-12 h-12 text-green-700 cursor-pointer hover:text-green-800' />
+                        <ImArrowLeft className='w-12 h-12 text-green-700 cursor-pointer hover:text-green-800' />
                         </div>
                     </div>
 
@@ -410,16 +611,16 @@ const Tabs = () => {
                     style={{
                         height: '315px',
                         width: '290px',
-                        overflowY: 'hidden',
+                        overflowX: 'hidden',
                     }}
                     >
 
-                        {/* 1. 친구 및 그룹 버튼, 검색창 */}
+                        {/* 1. 요청 목록 - 제목 */}
                         <div className='flex items-center justify-center h-16 py-3'>
                             <h1 className='text-lg font-bold'>요청 목록</h1>
                         </div>
 
-                        {/* 2. 친구 및 그룹 리스트(List) 출력 */}
+                        {/* 2. 요청 목록 - 리스트(List) 출력 */}
                         <div
                         style={{
                             border: '2px solid #7d7d7d',
@@ -427,30 +628,57 @@ const Tabs = () => {
                             width: '290px',
                             overflow: 'scroll',
                             borderRadius: '5px',
-                        }}></div>
+                        }}>
+                            <div className='flex items-center w-full'
+                                style={{
+                                    borderBottom: '1px solid #cfcfcf',
+                                }}
+                            >
+                                    <div className='m-2 ml-3'
+                                        style={{
+                                            backgroundImage: `url(${picture_user2})`,
+                                            backgroundPosition: "center", // 이미지 위치
+                                            backgroundSize: "cover", // 이미지 꽉차게
+                                            backgroundRepeat: 'no-repeat', // 이미지 반복 지정
+                                            width:'30px', // 배경이미지 크기(너비)
+                                            height:'30px', // 배경이미지 크기(높이)
+                                            borderRadius: '100px',
+                                        }}
+                                        ></div>
+                                    <span className='m-2'>김성결</span>
+                                    <div className='m-2 ml-24'>
+                                        <button className='add-cancel-button'
+                                        >취소</button>
+                                    </div>
+                            </div>
 
-                        {/* 3. 리스트(List) */}
-                        <div className=''>
-
+                            <div className='flex items-center w-full'
+                                style={{
+                                    borderBottom: '1px solid #cfcfcf',
+                                }}
+                            >
+                                    <div className='m-2 ml-3'
+                                        style={{
+                                            backgroundImage: `url(${picture_user3})`,
+                                            backgroundPosition: "center", // 이미지 위치
+                                            backgroundSize: "cover", // 이미지 꽉차게
+                                            backgroundRepeat: 'no-repeat', // 이미지 반복 지정
+                                            width:'30px', // 배경이미지 크기(너비)
+                                            height:'30px', // 배경이미지 크기(높이)
+                                            borderRadius: '100px',
+                                        }}
+                                        ></div>
+                                    <span className='m-2'>홍길동</span>
+                                    <div className='m-2 ml-24'>
+                                        <button className='add-cancel-button'
+                                        >취소</button>
+                                    </div>
+                            </div>
                         </div>
- 
                     </div> 
-                    
-                                      
                 </div>
             </div>
-
-
-
-
-
         </div>
-            
-
-
-
-
-
         </div>
     </>
   )

@@ -11,6 +11,9 @@ const NavbarFull = () => {
 
       <div className='relative md:w-96'>
       </div>
+      <span className='relative inset-y-0 left-0 flex items-center p-1 bg-gray-200 rounded w-96'>
+      <input type="text" placeholder='친구 검색' className='hidden w-full px-4 py-1 bg-gray-200 rounded outline-none md:block'/>
+          <button className='p-2 focus:outline-none md:text-gray-600'><FaSearch /></button></span>
       
       <div className='flex items-center m-1 gap-x-5'>
         <div className='text-black'><FaUserPlus className='w-6 h-6'/></div>

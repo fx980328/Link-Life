@@ -15,7 +15,7 @@ const InformationUpdate = () => {
           <fieldset
           style={{
             width:'615px', // 배경이미지 크기(너비)
-            height:'725px', // 배경이미지 크기(높이)
+            height:'710px', // 배경이미지 크기(높이)
             borderRadius: '10px',
             border: '1px solid #757575',
             boxShadow: '0px 4px 4px 0px #757575',

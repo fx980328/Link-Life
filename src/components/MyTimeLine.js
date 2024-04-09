@@ -23,7 +23,7 @@ const MyTimeLine = () => {
         <div>
           <div
           style={{
-            width:'615px', // 배경이미지 크기(너비)
+            width:'715px', // 배경이미지 크기(너비)
             height:'155px', // 배경이미지 크기(높이)
             border: '1px solid #CFCFCF',
             marginLeft: '44px',
@@ -49,7 +49,7 @@ const MyTimeLine = () => {
           </div>
           <div
           style={{
-            width:'615px', // 배경이미지 크기(너비)
+            width:'715px', // 배경이미지 크기(너비)
             height:'65px', // 배경이미지 크기(높이)
             border: '1px solid #CFCFCF',
             marginLeft: '44px',
