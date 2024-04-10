@@ -43,13 +43,11 @@ const Tabs = () => {
     const [todayState, setTodayState] = useState(0);
     const todayButton = (index) => {
         setTodayState(index);
-        console.log('todayButton : ' + index);
     }
 
     const [dDayState, setDDayState] = useState(0);
     const dDayButton = (index) => {
         setDDayState(index);
-        console.log('dDayButton : ' + index);
     }
 
     // 파일정보를 저장할 state 생성
@@ -195,13 +193,13 @@ const Tabs = () => {
             >
                 <div className='flex w-full h-full -mt-2'>
                     
-                    {/* 사진 Tab - 좌측(left) 화면 */}
+                    {/* 일정 Tab - 좌측(left) 화면 */}
                     <div
                     style={{
                         border: '1px solid #cfcfcf',
                         borderRight: 'none',
                         height: '315px',
-                        width: '248px',
+                        width: '364px',
                     }}
                     ></div>
                     
@@ -211,7 +209,7 @@ const Tabs = () => {
                     style={{
                         border: '1px solid #cfcfcf',
                         height: '315px',
-                        width: '480px',
+                        width: '364px',
                     }}
                     >
                         {/* 1. 날짜 및 시간 Title -> 우측(right) 화면 */}
@@ -225,7 +223,7 @@ const Tabs = () => {
                         style={{
                             border: '1px solid red',
                             height: '200px',
-                            width: '478px',
+                            width: '362px',
                         }}
                         >
 
@@ -237,7 +235,7 @@ const Tabs = () => {
                         style={{
                             border: '1px solid blue',
                             height: '82px',
-                            width: '478px',
+                            width: '362px',
                         }}
                         >
                             <button className='calanderButton'

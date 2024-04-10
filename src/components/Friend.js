@@ -1,5 +1,5 @@
 import React from 'react'
-import NavbarFull_onlyFriend from './NavbarFull_onlyFriend'
+import NavbarFull_Friend from './NavbarFull_Friend'
 
 import { useState } from 'react'
 import { FiPlusCircle } from 'react-icons/fi'
@@ -28,7 +28,7 @@ const dataCollection_my = [
       name: '차훈',
       date: '2025.02.09 (D-456)',
       title: '2025학년도 전기 학위수여식',
-      image: '../images/hoon.jpg'
+      image: '../media/hoon.jpg'
       // image: 'https://image.shutterstock.com/image-photo/blueberries-isolated-260nw-722035450.jpg'
   }
 ]
@@ -39,13 +39,13 @@ const dataCollection_bookmark = [
       name: '유봉균',
       date: '2025.02.09 (D-456)',
       title: '2025학년도 전기 학위수여식',
-      image: '../images/bong-gyun.jpg'
+      image: '../media/bong-gyun.jpg'
   },
   {
     name: '홍길동',
     date: '2024.01.09 (D-61)',
     title: '삼성SDS 취업연계형 인턴',
-    image: '../images/user.jpeg'
+    image: '../media/user.jpeg'
   }
 ]
 
@@ -55,20 +55,20 @@ const dataCollection_friend = [
     name: '고강희',
     date: '2024.01.09 (D-61)',
     title: '삼성SDS 취업연계형 인턴',
-    image: '../images/kang-hui.jpg'
+    image: '../media/kang-hui.jpg'
   },
   {
     name: '이순신',
     date: '2024.01.09 (D-61)',
     title: '삼성SDS 취업연계형 인턴',
-    image: '../images/user.jpeg'
+    image: '../media/user.jpeg'
   },
-{
-  name: '우혜원',
-  date: '2025.02.09 (D-456)',
-  title: '2025학년도 전기 학위수여식',
-  image: '../images/hye-won.jpg'
-}
+  {
+    name: '우혜원',
+    date: '2025.02.09 (D-456)',
+    title: '2025학년도 전기 학위수여식',
+    image: '../media/hye-won.jpg'
+  }
 ]
 
 const Friend = () => {
