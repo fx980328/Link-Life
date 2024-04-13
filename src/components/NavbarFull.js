@@ -1,5 +1,6 @@
 import React from 'react'
-import { FaSearch, FaCalendarAlt, FaHashtag, FaAngleLeft, FaUserCircle, FaUsers, FaUserPlus} from 'react-icons/fa'
+import { FaSearch, FaCalendarAlt, FaHashtag, FaAngleLeft, FaUserCircle, FaUserFriends, FaUserPlus} from 'react-icons/fa'
+import { FaPeopleGroup } from 'react-icons/fa6'
 import logo from '../images/logo_Link-Life(1).png'
 
 const NavbarFull = () => {
@@ -13,22 +14,42 @@ const NavbarFull = () => {
       </div>
       
       <div className='flex items-center m-1 gap-x-5'>
-        <div className='text-black'><FaUserPlus className='w-6 h-6'/></div>
-        <div className='text-black'><FaUsers className='w-6 h-6'/></div>
-        <div className='text-black'><FaCalendarAlt className='w-6 h-6'/></div>
-        <div className='text-black'><FaHashtag className='w-6 h-6'/></div>
+        {/* 1. 친구 */}
         <div className='relative'>
           <button className='text-black group'>
-              <FaUserCircle className='w-6 h-6 mt-1'/>
-              <div className='absolute right-0 z-10 hidden w-32 rounded-lg shadow group-focus:block top-full'>
-                  <ul className='py-4 text-sm bg-gray-100 text-gray-950'>
-                      <li><a href="" className='hover:text-blue-500'>Profile</a></li>
-                      <li><a href="" className='hover:text-blue-500'>Setting</a></li>
-                      <li><a href="" className='hover:text-blue-500'>Log Out</a></li>
+              <FaUserFriends className='w-6 h-6 mt-1'/>
+              <div className='absolute z-10 hidden w-20 bg-gray-200 rounded-lg shadow -right-7 group-hover:block top-full'>
+                  <ul className='py-2 text-xs text-gray-950'>
+                      <li>친구</li>
                   </ul>
               </div>
           </button>
         </div>
+
+        {/* 2. 그룹 */}
+        <div className='relative'>
+          <button className='text-black group'>
+              <FaPeopleGroup className='w-6 h-6 mt-1'/>
+              <div className='absolute z-10 hidden w-20 bg-gray-200 rounded-lg shadow -right-7 group-hover:block top-full'>
+                  <ul className='py-2 text-xs text-gray-950'>
+                      <li>그룹</li>
+                  </ul>
+              </div>
+          </button>
+        </div>
+        
+        {/* 3. 로그아웃 */}
+        <div className='relative'>
+          <button className='text-black group'>
+              <FaUserCircle className='w-6 h-6 mt-1'/>
+              <div className='absolute right-0 z-10 hidden w-20 bg-gray-200 rounded-lg shadow group-hover:block group-focus:block top-full'>
+                  <ul className='py-2 text-xs text-gray-950'>
+                      <li>로그아웃</li>
+                  </ul>
+              </div>
+          </button>
+        </div>
+
       </div>
     </nav>
   )

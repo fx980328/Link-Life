@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InformationUpdate = () => {
+const InfromationUpdate = () => {
   return (
     <>
       <div className='w-full'
@@ -176,4 +176,4 @@ const InformationUpdate = () => {
   )
 }
 
-export default InformationUpdate
+export default InfromationUpdate

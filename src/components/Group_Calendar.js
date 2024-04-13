@@ -1,11 +1,17 @@
 import React from 'react'
 import {FaCog, FaFileAlt, FaHome, FaPollH, FaRegEnvelope} from 'react-icons/fa'
 
-import { FaSearch } from 'react-icons/fa'
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 
 import picture_user from '../images/user.jpeg'
 import { useState } from 'react'
+
+import { FaSearch, FaBars, FaCalendarAlt, FaHashtag, FaAngleLeft, FaUserCircle, FaUserFriends } from 'react-icons/fa'
+import { FaPeopleGroup } from 'react-icons/fa6'
+import logo from '../images/logo_Link-Life(1).png'
+
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { Link } from 'react-router-dom'
 
 // 그룹(group) 사이드바(sidebar) 탭 데이터 영역
 const dataCollection_group = [
@@ -57,11 +63,55 @@ const dataCollection_group = [
 //     setGroupTabState(index);
 // }
 
+/// 그룹(group) 네브바(navbar) 탭 데이터 영역
+const dataCollection_groupInfo = [
+    {
+        name: '전공종합설계(1)',
+        numberOfPeople: 4,
+    }
+  ]
 
-const Sidebar_Group = () => {
+// 그룹(group) 전체 데이터 영역
+// 즐겨찾기(bookmark) 탭 데이터
+const dataCollection_groupMember = [
+    {
+        name: '유봉균',
+        date: '2025.02.09 (D-456)',
+        title: '2025학년도 전기 학위수여식',
+        image: '../media/bong-gyun.jpg'
+    },
+    {
+      name: '홍길동',
+      date: '2024.01.09 (D-61)',
+      title: '삼성SDS 취업연계형 인턴',
+      image: '../media/user.jpeg'
+    },
+    {
+      name: '고강희',
+      date: '2024.01.09 (D-61)',
+      title: '삼성SDS 취업연계형 인턴',
+      image: '../media/kang-hui.jpg'
+    },
+    {
+      name: '이순신',
+      date: '2024.01.09 (D-61)',
+      title: '삼성SDS 취업연계형 인턴',
+      image: '../media/user.jpeg'
+    },
+    {
+      name: '우혜원',
+      date: '2025.02.09 (D-456)',
+      title: '2025학년도 전기 학위수여식',
+      image: '../media/hye-won.jpg'
+    }
+  ]
+
+const Group_Calendar = () => {
   return (
     <>
-        <div className='fixed h-full pt-2 w-96'
+      <div className='flex'>
+          {/* (1) <Sidebar_Group /> 영역 */}
+          <div className='fixed h-full pt-2 w-96'
         style={{
             border: '1px solid #cacaca',
             overflowY: 'scroll',
@@ -153,19 +203,113 @@ const Sidebar_Group = () => {
                                             <span className='p-2 text-sm text-gray-400'>{item.user}</span>
                                         </div>                
                                     </div>
-                                </div>
-
-                                
+                                </div>                                
                             </div>
                             {/* ******* 친구 리스트 (가로 한세트 end) ******** */}
                         </div>
                     )}
                 </p>
             </div>
+        </div>
 
+        <div className= 'w-full ml-96'>
+            {/* (2). <Navbar_Group /> 영역 */}
+            <nav className='flex justify-between px-4 py-3 bg-white border'>
+                <div className='relative'>
+                    <button className='text-black group'>
+                        <FaAngleLeft className='w-6 h-6 mt-1'/>
+                        <div className='absolute z-10 hidden w-20 bg-gray-200 rounded-lg shadow -right-12 group-hover:block top-full'>
+                            <ul className='py-2 text-xs text-gray-950'>
+                                <li>뒤로가기</li>
+                            </ul>
+                        </div>
+                    </button>
+                </div>
+                
+                {/* (1) Navbar - 중간(center) - 로고 */}
+                {/* <div className='flex items-center text-xl'>
+                    <span className='font-semibold text-white'><img src={logo} alt="link-life logo" className='h-5 w-25'/></span>
+                </div> */}
+                {/* (2) Navbar - 중간(center) - 그룹명 */}
+                <div className='flex items-center text-xl'>
+                    <span className='font-semibold'>{dataCollection_groupInfo[0].name}</span>
+                    <span className='ml-2 text-[#A6A6A6]'>{dataCollection_groupInfo[0].numberOfPeople}</span>
+                </div>
+
+                <div className='flex items-center m-1 gap-x-5'>
+
+                    {/* 친구 */}
+                    <div className='relative'>
+                        <button className='text-black group'>
+                            <Link to="/">
+                                <div className='text-black'><FaUserFriends className='w-6 h-6 mt-1'/></div>
+                            </Link>
+                            <div className='absolute z-10 hidden w-20 bg-gray-200 rounded-lg shadow -right-7 group-hover:block top-full'>
+                                <ul className='py-2 text-xs text-gray-950'>
+                                    <li>친구</li>
+                                </ul>
+                            </div>
+                        </button>
+                    </div>
+
+                    {/* 그룹 */}
+                    <div className='relative'>
+                    <button className='text-black group'>
+                        <Link to="/group">
+                            <div className='text-black'><FaPeopleGroup className='w-6 h-6 mt-1'/></div>
+                        </Link>
+                        <div className='absolute z-10 hidden w-20 bg-gray-200 rounded-lg shadow -right-7 group-hover:block top-full'>
+                            <ul className='py-2 text-xs text-gray-950'>
+                                <li>그룹</li>
+                            </ul>
+                        </div>
+                    </button>
+                    </div>
+                    
+                    {/* 해시태그 */}
+                    <div className='relative'>
+                        <button className='text-black group'>
+                            <FaHashtag className='w-6 h-6 mt-1'/>
+                            <div className='absolute z-10 hidden w-20 bg-gray-200 rounded-lg shadow -right-7 group-hover:block top-full'>
+                                <ul className='py-2 text-xs text-gray-950'>
+                                    <li>해시태그</li>
+                                </ul>
+                            </div>
+                        </button>
+                    </div>
+                    
+                    {/* 로그인/로그아웃 */}
+                    <div className='relative'>
+                        <button className='text-black group'>
+                            <FaUserCircle className='w-6 h-6 mt-1'/>
+                            <div className='absolute right-0 z-10 hidden w-20 bg-gray-200 rounded-lg shadow group-hover:block group-focus:block top-full'>
+                                <ul className='py-2 text-xs text-gray-950'>
+                                    <li>로그아웃</li>
+                                </ul>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+            </nav>
+          
+            {/* (3). <Group /> 영역 */}
+            <div className='w-full'
+                style={{
+                minHeight:'1000px', // 배경 크기(최소 높이)
+                }}
+            >
+                <div className='px-10 py-8'>
+                    <div className='flex items-center text-xl'>
+                        <span className='font-semibold text-white'><img src={logo} alt="link-life logo" className='h-5 w-25'/></span>
+                    </div>
+                </div>
+            </div>
+
+          </div>
         </div>
     </>
   )
 }
 
-export default Sidebar_Group
+export default Group_Calendar

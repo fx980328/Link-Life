@@ -9,8 +9,9 @@ const dataCollection_groupInfo = [
   }
 ]
 
-const Navbar = () => {
+const Navbar_Group = () => {
   return (
+  <>
     <nav className='flex justify-between px-4 py-3 bg-white border'>
       <div className='text-black'><FaAngleLeft className='w-6 h-6 m-1'/></div>
       
@@ -44,7 +45,8 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+  </>
   )
 }
 
-export default Navbar
+export default Navbar_Group

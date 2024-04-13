@@ -1,13 +1,16 @@
 import React from 'react'
 import { FaSearch, FaCalendarAlt, FaHashtag, FaAngleLeft, FaUserCircle, FaUsers, FaUserPlus} from 'react-icons/fa'
 import logo from '../images/logo_Link-Life(1).png'
+import { Link } from 'react-router-dom'
 
-const NavbarFull = () => {
+const NavbarFull_Friend = () => {
   return (
     <nav className='flex justify-between px-4 py-3 bg-white border'>
-      <div className='items-center px-3 py-2.5 text-xl'>
-        <span className='font-semibold text-white'><img src={logo} alt="link-life logo" className='h-5 w-25'/></span>
-      </div>
+      <Link to="/introduceTeam">
+        <div className='items-center px-3 py-2.5 text-xl'>
+          <span className='font-semibold text-white'><img src={logo} alt="link-life logo" className='h-5 w-25'/></span>
+        </div>
+      </Link>
 
       <div className='relative md:w-96'>
       </div>
@@ -16,25 +19,59 @@ const NavbarFull = () => {
           <button className='p-2 focus:outline-none md:text-gray-600'><FaSearch /></button></span>
       
       <div className='flex items-center m-1 gap-x-5'>
-        <div className='text-black'><FaUserPlus className='w-6 h-6'/></div>
-        <div className='text-black'><FaUsers className='w-6 h-6'/></div>
-        <div className='text-black'><FaCalendarAlt className='w-6 h-6'/></div>
-        <div className='text-black'><FaHashtag className='w-6 h-6'/></div>
+        {/* 1. 친구추가 */}
         <div className='relative'>
           <button className='text-black group'>
-              <FaUserCircle className='w-6 h-6 mt-1'/>
-              <div className='absolute right-0 z-10 hidden w-32 rounded-lg shadow group-focus:block top-full'>
-                  <ul className='py-4 text-sm bg-gray-100 text-gray-950'>
-                      <li><a href="" className='hover:text-blue-500'>Profile</a></li>
-                      <li><a href="" className='hover:text-blue-500'>Setting</a></li>
-                      <li><a href="" className='hover:text-blue-500'>Log Out</a></li>
+              <FaUserPlus className='w-6 h-6 mt-1'/>
+              <div className='absolute z-10 hidden w-20 bg-gray-200 rounded-lg shadow -right-7 group-hover:block top-full'>
+                  <ul className='py-2 text-xs text-gray-950'>
+                      <li>친구 추가</li>
                   </ul>
               </div>
           </button>
         </div>
+
+        {/* 2. 그룹 */}
+        <div className='relative'>
+          <button className='text-black group'>
+              <Link to="/group">
+                <div className='text-black'><FaUsers className='w-6 h-6 mt-1'/></div>
+              </Link>
+              <div className='absolute z-10 hidden w-20 bg-gray-200 rounded-lg shadow -right-7 group-hover:block top-full'>
+                  <ul className='py-2 text-xs text-gray-950'>
+                      <li>그룹</li>
+                  </ul>
+              </div>
+          </button>
+        </div>
+
+        {/* 3. 해시태그 */}
+        <div className='relative'>
+          <button className='text-black group'>
+              <FaHashtag className='w-6 h-6 mt-1'/>
+              <div className='absolute z-10 hidden w-20 bg-gray-200 rounded-lg shadow -right-7 group-hover:block top-full'>
+                  <ul className='py-2 text-xs text-gray-950'>
+                      <li>해시태그</li>
+                  </ul>
+              </div>
+          </button>
+        </div>
+
+        {/* 4. 로그아웃 */}
+        <div className='relative'>
+          <button className='text-black group'>
+              <FaUserCircle className='w-6 h-6 mt-1'/>
+              <div className='absolute right-0 z-10 hidden w-20 bg-gray-200 rounded-lg shadow group-hover:block group-focus:block top-full'>
+                  <ul className='py-2 text-xs text-gray-950'>
+                      <li><a href='' className='hover:text-blue-600 hover:font-bold'>로그아웃</a></li>
+                  </ul>
+              </div>
+          </button>
+        </div>
+
       </div>
     </nav>
   )
 }
 
-export default NavbarFull
+export default NavbarFull_Friend
