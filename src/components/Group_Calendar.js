@@ -13,6 +13,9 @@ import logo from '../images/logo_Link-Life(1).png'
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Link } from 'react-router-dom'
 
+import Calendar_Modal from "./Calendar_Modal";
+import Dday from "./Dday";
+
 // 그룹(group) 사이드바(sidebar) 탭 데이터 영역
 const dataCollection_group = [
     {
@@ -107,7 +110,131 @@ const dataCollection_groupMember = [
   ]
 
 const Group_Calendar = () => {
-  return (
+
+    // 캘린더 관련 javascript   
+    const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); // 현재년도 표시
+    const [currentMonth, setCurrentMonth] = useState(new Date().getMonth()); // 현재 월표시
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    // 달력 만들기
+    const generateCalendar = () => {
+        const firstDayOfMonth = new Date(currentYear, currentMonth, 1); // 현재 달의 첫째날
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // (다음달의 0번째)현재 달의 마지막 날
+        const firstDayOfWeek = firstDayOfMonth.getDay(); //첫번째 날 요일 반환
+
+        const calendar = [];
+        const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+
+        // 요일을 표시하는 헤더 추가
+        daysOfWeek.forEach((day, index) => {
+            let textColor = "#616161"; // 기본 텍스트 색상
+            let bgColor = "rgba(128, 128, 128, 0.3)"; // 기본 배경 색상
+
+            // 일요일은 빨간색으로 설정
+            if (index === 0) {
+                textColor = "#FF8F8F";
+            }
+            // 토요일은 파란색으로 설정
+            else if (index === 6) {
+                textColor = "#7B80F9";
+            }
+
+            calendar.push(
+                <div
+                key={day}
+                className="px-3 py-2 font-semibold text-center border rounded-md"
+                style={{
+                    backgroundColor: bgColor,
+                    color: textColor,
+                }}
+                >
+                {day}
+                </div>
+            );
+        });
+
+        // 첫째날 시작 전 빈 부분 추가
+        for (let i = 0; i < firstDayOfWeek; i++) {
+            calendar.push(<div key={`empty${i}`} className="px-4 py-2"></div>);
+        }
+
+        // 해당 월의 각 날짜를 표시
+        for (let day = 1; day <= daysInMonth; day++) {
+            calendar.push(
+                <div
+                key={day}
+                className="flex items-center justify-center py-4 font-semibold cursor-pointer"
+                onClick={() => handleDateClick(day)}
+                style={{
+                    color: "#616161",
+                }}
+                >
+                {day}
+                </div>
+            );
+        }
+        return calendar;
+    };
+
+    // 이전달 선택
+    const prevMonth = () => {
+        setCurrentMonth((prevMonth) => {
+            let newYear = currentYear;
+            let newMonth = prevMonth - 1; // 이전달
+            if (newMonth < 0) {
+                newMonth = 11;
+                newYear--;
+            }
+            setCurrentYear(newYear);
+            return newMonth;
+        });
+    };
+
+    // 다음달 선택
+    const nextMonth = () => {
+        setCurrentMonth((nextMonth) => {
+            let newYear = currentYear;
+            let newMonth = nextMonth + 1; // 다음달
+            if (newMonth > 11) {
+                newMonth = 0;
+                newYear++;
+            }
+            setCurrentYear(newYear);
+            return newMonth;
+        });
+    };
+
+    // 캘린더 모달창 열고 닫기
+    const toggleModal = () => {
+        setShowModal((prev) => !prev);
+    };
+
+    // 날짜 클릭했을 때 이벤트
+    const handleDateClick = (day) => {
+        setSelectedDate(day);
+        toggleModal();
+    };
+
+    // 모달창에 날짜 포맷해서 표시
+    const formatDate = () => {
+        if (!selectedDate) return ""; // 선택한 날짜가 없을 경우 빈 문자열 반환
+        const options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        weekday: "long",
+        locale: "ko-KR",
+        };
+        const formattedDate = new Date(
+        currentYear,
+        currentMonth,
+        selectedDate
+        ).toLocaleString("ko-KR", options);
+        return formattedDate;
+    };
+
+    return (
     <>
       <div className='flex'>
           {/* (1) <Sidebar_Group /> 영역 */}
@@ -230,6 +357,7 @@ const Group_Calendar = () => {
                 {/* <div className='flex items-center text-xl'>
                     <span className='font-semibold text-white'><img src={logo} alt="link-life logo" className='h-5 w-25'/></span>
                 </div> */}
+
                 {/* (2) Navbar - 중간(center) - 그룹명 */}
                 <div className='flex items-center text-xl'>
                     <span className='font-semibold'>{dataCollection_groupInfo[0].name}</span>
@@ -293,18 +421,86 @@ const Group_Calendar = () => {
                 </div>
             </nav>
           
-            {/* (3). <Group /> 영역 */}
-            <div className='w-full'
-                style={{
-                minHeight:'1000px', // 배경 크기(최소 높이)
-                }}
-            >
-                <div className='px-10 py-8'>
-                    <div className='flex items-center text-xl'>
-                        <span className='font-semibold text-white'><img src={logo} alt="link-life logo" className='h-5 w-25'/></span>
+            <div className='flex bg-[#E6E7E6]'>
+                {/* (3)-1. <Group /> 영역 - 왼쪽(left) - 캘린더(calendar) */}
+                <div className='w-full'
+                    style={{
+                    minHeight:'1000px', // 배경 크기(최소 높이)
+                    width: '600px',
+                    }}
+                >
+                    <div
+                        className="flex flex-col items-start py-2 ml-10 px-7 mt-7"
+                        style={{
+                            minHeight: "550px",
+                            width: "550px",
+                            fontFamily: "오아 고딕",
+                            // borderRadius: "20px",
+                        }}
+                    >
+                        <div className="flex flex-wrap items-start justify-between py-4 space-x-60 px-7">
+                            <h1
+                                className="text-2xl"
+                                style={{ fontWeight: "bold", color: "#616161" }}
+                            >
+                                {`${new Date(currentYear, currentMonth).toLocaleString("default", {
+                                    month: "numeric",
+                                    year: "numeric",
+                                })}`}
+                            </h1>
+                            <div className="flex items-end justify-end">
+                                <div
+                                    className="px-2 py-1 mx-2 rounded-full"
+                                    style={{ background: "#7D7D7D", width: "32px", height: "32px" }}
+                                >
+                                    <button onClick={prevMonth} className="text-base text-white">
+                                    ◀
+                                    </button>
+                                </div>
+                                <div
+                                    className="px-2.5 py-1 mx-2 rounded-full items-end"
+                                    style={{ background: "#7D7D7D", width: "32px", height: "32px" }}
+                                >
+                                    <button onClick={nextMonth} className="text-base text-white">
+                                    ▶
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr className="w-full mb-6 border-2 border-white" />
+
+                        <div className="grid grid-cols-7 gap-4 p-6 ml-8 bg-white rounded-xl">
+                            {generateCalendar()}
+                        </div>
+
+                        <hr className="w-full mt-6 border-2 border-white" />
+
+                        <Calendar_Modal
+                            showModal={showModal}
+                            selectedDate={selectedDate}
+                            setSelectedDate={setSelectedDate}
+                            toggleModal={toggleModal}
+                            formatDate={formatDate}
+                        />
                     </div>
                 </div>
+
+
+
+                {/* (3)-2. <Group /> 영역 - 오른쪽(right) - 디데이(d-day) */}
+                <div className='w-full px-16'
+                    style={{
+                    minHeight:'1000px', // 배경 크기(최소 높이)
+                    width: '670px',
+                    }}
+                >
+                    <Dday />
+                </div>
             </div>
+            
+
+
 
           </div>
         </div>
