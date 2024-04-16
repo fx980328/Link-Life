@@ -290,7 +290,7 @@ const Group_Total = () => {
                             <FaUserCircle className='w-6 h-6 mt-1'/>
                             <div className='absolute right-0 z-10 hidden w-20 bg-gray-200 rounded-lg shadow group-hover:block group-focus:block top-full'>
                                 <ul className='py-2 text-xs text-gray-950'>
-                                    <li>로그아웃</li>
+                                    <li><a href='' className='hover:text-blue-600 hover:font-bold'>로그아웃</a></li>
                                 </ul>
                             </div>
                         </button>

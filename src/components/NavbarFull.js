@@ -20,7 +20,7 @@ const NavbarFull = () => {
               <FaUserFriends className='w-6 h-6 mt-1'/>
               <div className='absolute z-10 hidden w-20 bg-gray-200 rounded-lg shadow -right-7 group-hover:block top-full'>
                   <ul className='py-2 text-xs text-gray-950'>
-                      <li>친구</li>
+                    <li><a href='' className='hover:text-blue-600 hover:font-bold'>로그아웃</a></li>
                   </ul>
               </div>
           </button>
